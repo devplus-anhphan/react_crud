@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route, Outlet, Link, Switch } from "react-router-dom";
 import AddStudent from './pages/AddStudents.js'
 import StudentList from './pages/StudentList.js'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const rootElement = document.getElementById("root");
 render(

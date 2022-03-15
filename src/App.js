@@ -1,23 +1,30 @@
 import * as React from "react";
-import { Router, Routes, Route, Outlet, Link, Switch } from "react-router-dom";
-import AddStudent from './pages/AddStudents.js'
-import StudentList from './pages/StudentList.js'
+import { Outlet } from "react-router-dom";
+import { Navbar, Container, Nav } from 'react-bootstrap'
 import './App.css';
 
 function App() {
   return (
-
     <div className="App">
-      <h1>Bookkeeper</h1>
-      <nav
-        style={{
-          borderBottom: "solid 1px",
-          paddingBottom: "1rem",
-        }}
-      >
-        <Link to="/home">Home</Link> |{" "}
-        <Link to="/add">Add</Link>
-      </nav>
+      <Navbar bg="dark" variant="dark">
+        <Container>
+          <Navbar.Brand href="/home">
+            <img
+              alt=""
+              src="logo192.png"
+              width="30"
+              height="30"
+              className="d-inline-block align-top"
+            />{' '}
+            React Bootstrap
+          </Navbar.Brand>
+          <Nav className="me-auto">
+            <Nav.Link href="/home">Home</Nav.Link>
+            <Nav.Link href="/add">Add</Nav.Link>
+          </Nav>
+        </Container>
+      </Navbar>
+      <br />
       <Outlet />
     </div>
 

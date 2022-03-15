@@ -13,12 +13,18 @@ import {
 const AddStudent = () => {
     const [studId, setStudId] = useState("");
     const [name, setName] = useState("");
+    const [sex, setSex] = useState("");
+    const [dob, setDOB] = useState("");
+    const [nationality, setNationality] = useState("");
+    const [major, setMajor] = useState("");
+    const [course, setCourse] = useState("");
     const [message, setMessage] = useState({ error: false, msg: "" });
+
     const { id } = useParams();
+
     const studentCollectionRef = collection(db, "students");
     const newStudent = {
-        studId,
-        name,
+        studId, name, sex, dob, nationality, major, course
     }
 
     const addStudents = (newStudent) => {
@@ -38,13 +44,39 @@ const AddStudent = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setMessage("");
-        if (studId === "" || name === "") {
+        if (studId === "" || name === "" || sex === "" || dob === "" || nationality === "" || major === "" || course === "") {
             setMessage({ error: true, msg: "All fields are mandatory!" });
             return;
-        }
-        ;
-        console.log(newStudent);
-
+        };
+        //console.log(newStudent);
+        // if (!studId.match('/^[0-9]{0,9}$/')) {
+        //     setMessage({ error: true, msg: "Student ID only contains string of number with the length of 9" });
+        //     return;
+        // }
+        // if (!name.match('/^[a-z A-Z]{1,50}$/')) {
+        //     setMessage({ error: true, msg: "Name only contains letter and has length of 50 maximum" });
+        //     return;
+        // }
+        // if (!dob.match('/^\d{1,2}\/\d{1,2}\/\d{4}$/')) {
+        //     setMessage({ error: true, msg: "Date of birth should follow the form: dd/mm/yyyy" });
+        //     return;
+        // }
+        // if (!sex.match('/^[a-zA-Z]{1,50}$/')) {
+        //     setMessage({ error: true, msg: "Retype the sex" });
+        //     return;
+        // }
+        // if (!nationality.match('/^[a-zA-Z]{1,20}$/')) {
+        //     setMessage({ error: true, msg: "Retype the nationality" });
+        //     return;
+        // }
+        // if (!major.match('/^[a-z A-Z]{1,30}$/')) {
+        //     setMessage({ error: true, msg: "Major only contains letter and has length of 30 maximum" });
+        //     return;
+        // }
+        // if (!course.match('/^[a-z A-Z]{1,50}$/')) {
+        //     setMessage({ error: true, msg: "Course name only contains letter and has length of 50 maximum" });
+        //     return;
+        // }
 
         try {
             if (id !== undefined && id !== "") {
@@ -60,6 +92,11 @@ const AddStudent = () => {
 
         setStudId("");
         setName("");
+        setSex("");
+        setDOB("");
+        setNationality("");
+        setMajor("");
+        setCourse("")
     };
 
     const editHandler = async () => {
@@ -69,6 +106,11 @@ const AddStudent = () => {
             console.log("the record is :", docSnap.data());
             setStudId(docSnap.data().studId);
             setName(docSnap.data().name);
+            setSex(docSnap.data().sex);
+            setDOB(docSnap.data().dob);
+            setNationality(docSnap.data().nationality);
+            setMajor(docSnap.data().major);
+            setCourse(docSnap.data().course);
         } catch (err) {
             setMessage({ error: true, msg: err.message });
         }
@@ -82,6 +124,7 @@ const AddStudent = () => {
     }, [id]);
     return (
         <>
+            <h1>Create form</h1>
             <div className="p-4 box">
                 {message?.msg && (
                     <Alert
@@ -112,6 +155,61 @@ const AddStudent = () => {
                                 type="text"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
+                            />
+                        </InputGroup>
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formStudentSex">
+                        <InputGroup>
+                            <InputGroup.Text id="formStudentSex">Sex</InputGroup.Text>
+                            <Form.Control
+                                type="text"
+                                value={sex}
+                                onChange={(e) => setSex(e.target.value)}
+                            />
+                        </InputGroup>
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formStudentDOB">
+                        <InputGroup>
+                            <InputGroup.Text id="formStudentDOB">DOB </InputGroup.Text>
+                            <Form.Control
+                                type="text"
+                                value={dob}
+                                onChange={(e) => setDOB(e.target.value)}
+                            />
+                        </InputGroup>
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formStudentNationality">
+                        <InputGroup>
+                            <InputGroup.Text id="formStudentNationality">Nationality </InputGroup.Text>
+                            <Form.Control
+                                type="text"
+                                value={nationality}
+                                onChange={(e) => setNationality(e.target.value)}
+                            />
+                        </InputGroup>
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formStudentMajor">
+                        <InputGroup>
+                            <InputGroup.Text id="formStudentMajor">Major </InputGroup.Text>
+                            <Form.Control
+                                type="text"
+                                value={major}
+                                onChange={(e) => setMajor(e.target.value)}
+                            />
+                        </InputGroup>
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formStudentCourse">
+                        <InputGroup>
+                            <InputGroup.Text id="formStudentCourse">Course </InputGroup.Text>
+                            <Form.Control
+                                type="text"
+                                value={course}
+                                onChange={(e) => setCourse(e.target.value)}
                             />
                         </InputGroup>
                     </Form.Group>
